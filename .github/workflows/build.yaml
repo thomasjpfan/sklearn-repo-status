@@ -1,0 +1,45 @@
+name: Build webpage
+
+on:
+  schedule:
+    # Nightly build at 23:00
+    - cron: "0 23 * * * "
+  # Manual run
+  workflow_dispatch:
+
+jobs:
+  build_webpage:
+    name: Build webpage
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+          architecture: x64
+      - uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+      - uses: actions/cache@v2
+        with:
+          path: ~/.cache/ghcache
+          key: ${{ runner.os }}-ghcache
+          restore-keys: |
+            ${{ runner.os }}-ghcache
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run builder
+        run: python make.py ~/.cache/ghcache
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.7
+        with:
+          branch: gh-pages # The branch the action should deploy to.
+          folder: "." # The folder the action should deploy.
+
