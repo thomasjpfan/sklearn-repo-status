@@ -37,12 +37,12 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
       - name: Run builder
-        run: python make.py ~/.cache/ghcache
+        run: python make.py ~/.cache/ghcache dist
         env:
           GITHUB_TOKEN: ${{ github.token }}
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.7
         with:
           branch: gh-pages # The branch the action should deploy to.
-          folder: "." # The folder the action should deploy.
+          folder: dist # The folder the action should deploy.
 

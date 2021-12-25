@@ -6,6 +6,7 @@ from collections import defaultdict
 import argparse
 from pathlib import Path
 from collections import defaultdict
+from shutil import copyfile
 
 from jinja2 import Template
 from github import Github
@@ -145,6 +146,7 @@ def load_data(repo, now, cache, only_cache):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("cache", help="Cache Folder", type=str)
+    parser.add_argument("dist", help="Cache Folder", type=str)
     parser.add_argument(
         "--github_token",
         help="GitHub Token",
@@ -217,8 +219,15 @@ if __name__ == "__main__":
     )
 
     assets = Path("assets")
-    issues_img_path = assets / "issues.svg"
-    pulls_img_path = assets / "pulls.svg"
+
+    dist = Path(args.dist)
+    dist.mkdir(exist_ok=True)
+
+    dist_asset = dist / "assets"
+    dist_asset.mkdir(exist_ok=True)
+
+    issues_img_path = dist_asset / "issues.svg"
+    pulls_img_path = dist_asset / "pulls.svg"
 
     create_graph(
         data,
@@ -239,5 +248,9 @@ if __name__ == "__main__":
         template = Template(f.read())
 
     output = template.render(**template_data)
-    index_path = Path("index.html")
+
+    index_path = dist / "index.html"
     index_path.write_text(output)
+
+    # move assets to dist
+    copyfile(assets / "scikit-learn-logo.svg", dist_asset / "scikit-learn-logo.svg")
