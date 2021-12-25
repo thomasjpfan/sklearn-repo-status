@@ -154,6 +154,9 @@ if __name__ == "__main__":
         default=os.environ.get("GITHUB_TOKEN"),
     )
     parser.add_argument(
+        "--repo", help="Repo to query", type=str, default="scikit-learn/scikit-learn"
+    )
+    parser.add_argument(
         "--only-cache", help="Only use cached data", action="store_true"
     )
 
@@ -161,7 +164,7 @@ if __name__ == "__main__":
     cache = Path(args.cache)
 
     gh = Github(args.github_token)
-    sk_repo = gh.get_repo("scikit-learn/scikit-learn")
+    sk_repo = gh.get_repo(args.repo)
 
     now = datetime.now(tz=timezone.utc)
 
@@ -173,6 +176,7 @@ if __name__ == "__main__":
     last_4_keys = keys_to_show[-5:-1]
     current_key = keys_to_show[-1]
     template_data = {
+        "repo": args.repo,
         "current_month": now.strftime("%B"),
         "current_year": now.year,
         "current_datetime": now.strftime("%B %d, %Y"),
@@ -253,4 +257,4 @@ if __name__ == "__main__":
     index_path.write_text(output)
 
     # move assets to dist
-    copyfile(assets / "scikit-learn-logo.svg", dist_asset / "scikit-learn-logo.svg")
+    copyfile(assets / "logo.svg", dist_asset / "logo.svg")
