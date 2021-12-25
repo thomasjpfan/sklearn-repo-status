@@ -63,7 +63,6 @@ def create_graph(
 ):
     x_range = list(range(len(keys_to_show)))
     fig, ax = plt.subplots(figsize=(10, 6), dpi=300)
-    font = {"size": 26}
 
     created = [data["created_bys"][by_key].get(key, 0) for key in keys_to_show]
     closed = [data["closed_bys"][by_key].get(key, 0) for key in keys_to_show]
@@ -76,12 +75,11 @@ def create_graph(
     ax.set_xticklabels(
         [key if i % 2 == 0 else "" for i, key in enumerate(keys_to_show)],
         rotation=45,
-        fontdict={"size": 14},
+        fontdict={"size": 18},
     )
-    ax.tick_params(axis="y", labelsize=18)
-    ax.set_ylabel("Events", fontdict=font)
-    ax.set_xlabel("Time", fontdict=font)
-    ax.legend(loc="lower right", fontsize=16)
+    ax.tick_params(axis="y", labelsize=24)
+    ax.set_ylabel("Count", fontdict={"size": 28})
+    ax.legend(loc="lower right", fontsize=22)
     ax.grid(axis="y")
     fig.savefig(path, bbox_inches="tight")
 
