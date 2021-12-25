@@ -1,3 +1,0 @@
-Jinja2==3.0
-PyGithub==1.55
-matplotlib==3.5
