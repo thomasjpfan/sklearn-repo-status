@@ -4,6 +4,7 @@ on:
   schedule:
     # Nightly build at 23:00
     - cron: "0 23 * * * "
+  push: [main]
   # Manual run
   workflow_dispatch:
 
