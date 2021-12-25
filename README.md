@@ -2,7 +2,7 @@
 
 [Live webpage](https://thomasjpfan.github.io/sklearn-repo-status/)
 
-Auto updating website that tracks closed & open issues/PRs.
+Auto updating website that tracks closed & open issues/PRs on [scikit-learn/scikit-learn](https://github.com/scikit-learn/scikit-learn/).
 
 ## Running locally
 
