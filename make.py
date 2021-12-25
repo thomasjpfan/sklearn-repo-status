@@ -156,12 +156,19 @@ if __name__ == "__main__":
     parser.add_argument(
         "--repo", help="Repo to query", type=str, default="scikit-learn/scikit-learn"
     )
+    parser.add_argument("--logo", help="logo", type=str, default="logo.svg")
     parser.add_argument(
         "--only-cache", help="Only use cached data", action="store_true"
     )
 
     args = parser.parse_args()
     cache = Path(args.cache)
+    assets = Path("assets")
+
+    logo_path = assets / args.logo
+    if not logo_path.exists():
+        print(f"--logo {args.logo} must be in the assets directory")
+        sys.exit(1)
 
     gh = Github(args.github_token)
     sk_repo = gh.get_repo(args.repo)
@@ -177,6 +184,7 @@ if __name__ == "__main__":
     current_key = keys_to_show[-1]
     template_data = {
         "repo": args.repo,
+        "logo": logo_path.name,
         "current_month": now.strftime("%B"),
         "current_year": now.year,
         "current_datetime": now.strftime("%B %d, %Y"),
@@ -222,8 +230,6 @@ if __name__ == "__main__":
         template_data["current_pulls_opened"], template_data["current_pulls_closed"]
     )
 
-    assets = Path("assets")
-
     dist = Path(args.dist)
     dist.mkdir(exist_ok=True)
 
@@ -257,4 +263,4 @@ if __name__ == "__main__":
     index_path.write_text(output)
 
     # move assets to dist
-    copyfile(assets / "logo.svg", dist_asset / "logo.svg")
+    copyfile(logo_path, dist_asset / logo_path.name)
