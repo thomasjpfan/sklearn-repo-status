@@ -67,8 +67,8 @@ def create_graph(
     created = [data["created_bys"][by_key].get(key, 0) for key in keys_to_show]
     closed = [data["closed_bys"][by_key].get(key, 0) for key in keys_to_show]
 
-    ax.plot(x_range, created, "o-", label="created", lw=3)
-    ax.plot(x_range, closed, "o-", label=closed_label, lw=3)
+    ax.plot(x_range, created, "o-", label="Opened", lw=3, markersize=6)
+    ax.plot(x_range, closed, "D-", label=closed_label, lw=3, markersize=6)
     ax.set_ylim(0, None)
     ax.set_xticks(x_range)
 
@@ -242,14 +242,14 @@ if __name__ == "__main__":
         keys_to_show[:-1],
         issues_img_path,
         "by_issues",
-        "closed",
+        "Closed",
     )
     create_graph(
         data,
         keys_to_show[:-1],
         pulls_img_path,
         "by_pulls",
-        "merged | closed",
+        "Merged | Closed",
     )
 
     with (assets / "index.html.j2").open("r") as f:
