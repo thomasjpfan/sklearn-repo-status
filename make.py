@@ -183,6 +183,7 @@ if __name__ == "__main__":
     template_data = {
         "repo": args.repo,
         "logo": logo_path.name,
+        "cache": cache.name,
         "current_month": now.strftime("%B"),
         "current_year": now.year,
         "current_datetime": now.strftime("%B %d, %Y"),
@@ -262,3 +263,4 @@ if __name__ == "__main__":
 
     # move assets to dist
     copyfile(logo_path, dist_asset / logo_path.name)
+    copyfile(cache, dist_asset / cache.name)
