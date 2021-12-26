@@ -183,7 +183,6 @@ if __name__ == "__main__":
     template_data = {
         "repo": args.repo,
         "logo": logo_path.name,
-        "cache": cache.name,
         "current_month": now.strftime("%B"),
         "current_year": now.year,
         "current_datetime": now.strftime("%B %d, %Y"),
