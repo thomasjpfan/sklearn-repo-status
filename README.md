@@ -26,10 +26,11 @@ python make.py cache.json dist
 ## How to setup for another repo?
 
 1. Add your logo into `assets` directory. You can use another logo as long as it is in the `assets` directory.
-2. Pass in `--repo` into the `make.py` command:
+2. Pass in `--repo` into the `make.py` command. Use `--logo` if you have a different logo name.
 
 ```python
-python make.py cache.json dist --repo scikit-learn/scikit-learn --logo logo.svg
+python make.py cache.json dist \
+    --repo scikit-learn/scikit-learn --logo logo.svg
 ```
 
 ## Testing
