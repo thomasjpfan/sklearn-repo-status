@@ -6,7 +6,7 @@ Auto updating website that tracks closed & open issues/PRs on [scikit-learn/scik
 
 ## Running locally
 
-0. Setup venv
+0. Setup a virtual environment.
 1. Install requirements
 
 ```bash

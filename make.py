@@ -31,29 +31,6 @@ def by_pulls_issues(all_items, key):
     return {"by_pulls": by_pulls, "by_issues": by_issues}
 
 
-def get_past_time_keys(now, num):
-    cur_year = now.year
-    cur_month = now.month
-
-    output = []
-    for _ in range(num):
-        output.append(f"{cur_year}-{cur_month}")
-        if cur_month > 1:
-            cur_month -= 1
-        else:
-            cur_month = 12
-            cur_year -= 1
-    return list(reversed(output))
-
-
-def get_delta(left, right):
-    delta = left - right
-    if delta > 0:
-        return f"+{delta}"
-    else:
-        return f"{delta}"
-
-
 def create_graph(
     data,
     keys_to_show,
@@ -141,6 +118,21 @@ def load_data(repo, now, cache, only_cache):
     return data
 
 
+def get_past_time_keys(now, num):
+    cur_year = now.year
+    cur_month = now.month
+
+    output = []
+    for _ in range(num):
+        output.append(f"{cur_year}-{cur_month}")
+        if cur_month > 1:
+            cur_month -= 1
+        else:
+            cur_month = 12
+            cur_year -= 1
+    return list(reversed(output))
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("cache", help="Cache Folder", type=str)
@@ -208,24 +200,24 @@ if __name__ == "__main__":
     }
 
     template_data["previous_issues_delta"] = [
-        get_delta(o, c)
+        "{0:+}".format(o - c)
         for o, c in zip(
             template_data["previous_issues_opened"],
             template_data["previous_issues_closed"],
         )
     ]
     template_data["previous_pulls_delta"] = [
-        get_delta(o, c)
+        "{0:+}".format(o - c)
         for o, c in zip(
             template_data["previous_pulls_opened"],
             template_data["previous_pulls_closed"],
         )
     ]
-    template_data["current_issues_delta"] = get_delta(
-        template_data["current_issues_opened"], template_data["current_issues_closed"]
+    template_data["current_issues_delta"] = "{0:+}".format(
+        template_data["current_issues_opened"] - template_data["current_issues_closed"]
     )
-    template_data["current_pulls_delta"] = get_delta(
-        template_data["current_pulls_opened"], template_data["current_pulls_closed"]
+    template_data["current_pulls_delta"] = "{0:+}".format(
+        template_data["current_pulls_opened"] - template_data["current_pulls_closed"]
     )
 
     dist = Path(args.dist)
