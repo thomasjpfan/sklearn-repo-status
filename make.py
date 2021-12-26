@@ -61,11 +61,6 @@ def create_graph(
     fig.savefig(path, bbox_inches="tight")
 
 
-def beginning_previous_month(now):
-    first = now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
-    return (first - timedelta(days=1)).replace(day=1)
-
-
 def load_data(repo, now, cache, only_cache):
     if only_cache:
         if not cache.exists():
@@ -75,11 +70,15 @@ def load_data(repo, now, cache, only_cache):
             return json.load(f)
 
     print("Getting data from GitHub")
+    first_this_month = now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+    previous_month = (first_this_month - timedelta(days=1)).replace(day=1)
 
-    since = beginning_previous_month(now)
     if not cache.exists():
         # load in 2 years worth of data if there is no cache
-        since = since.replace(year=now.year - 2)
+        since = previous_month.replace(year=now.year - 2)
+    else:
+        # There is a cache, only need to update the previous month + this month
+        since = previous_month
 
     issues = repo.get_issues(state="all", since=since)
     all_issues = list(issues)
@@ -99,7 +98,6 @@ def load_data(repo, now, cache, only_cache):
     print("Updating cache")
     # cache exist -> need to update data and cache
     now_str = f"{now.year}-{now.month}"
-    previous_month = beginning_previous_month(now)
     previous_str = f"{previous_month.year}-{previous_month.month}"
 
     # Update cache data
