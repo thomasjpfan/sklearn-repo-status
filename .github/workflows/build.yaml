@@ -30,14 +30,15 @@ jobs:
             ${{ runner.os }}-pip-
       - uses: actions/cache@v2
         with:
-          path: ~/.cache/ghcache
+          path: ~/.cache/ghcache.json
           key: ${{ runner.os }}-ghcache-${{ hashFiles('make.py') }}
           restore-keys: |
             ${{ runner.os }}-ghcache
       - name: Install dependencies
         run: pip install -r requirements.txt
       - name: Run builder
-        run: python make.py ~/.cache/ghcache/cache.json dist
+        run: |
+          python make.py ~/.cache/ghcache.json dist
         env:
           GITHUB_TOKEN: ${{ github.token }}
       - name: Deploy 🚀
