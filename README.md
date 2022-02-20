@@ -26,7 +26,7 @@ python make.py cache.json dist
 ## How to setup for another repo?
 
 1. Add your logo into `assets` directory. You can use another logo as long as it is in the `assets` directory.
-2. Pass in `--repo` into the `make.py` command. Use `--logo` if you have a different logo name.
+2. Pass in `--repo` into the `make.py` command. Use `--logo` if your logo has a different filename.
 
 ```python
 python make.py cache.json dist \
