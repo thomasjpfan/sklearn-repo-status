@@ -37,7 +37,7 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
       - name: Run builder
-        run: python make.py ~/.cache/ghcache dist
+        run: python make.py ~/.cache/ghcache/cache.json dist
         env:
           GITHUB_TOKEN: ${{ github.token }}
       - name: Deploy 🚀
