@@ -32,6 +32,7 @@ python make.py cache.json dist
 python make.py cache.json dist \
     --repo scikit-learn/scikit-learn --logo logo.svg
 ```
+3. **Extra**. To use Github Actions to auto generate the webpage update `.github/workflows/build.yaml` by passing in your `--repo`.
 
 ## Testing
 
