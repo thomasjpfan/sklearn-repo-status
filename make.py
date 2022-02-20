@@ -134,7 +134,7 @@ def get_past_time_keys(now, num):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("cache", help="Cache Folder", type=str)
-    parser.add_argument("dist", help="Cache Folder", type=str)
+    parser.add_argument("dist", help="Distribution folder", type=str)
     parser.add_argument(
         "--github_token",
         help="GitHub Token",

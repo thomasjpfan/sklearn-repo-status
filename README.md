@@ -15,7 +15,7 @@ pip install -r requirements
 
 2. Create a personal access token and set it to `GITHUB_TOKEN`.
 
-3. Run the following to call the GitHub API for repo information and cache the results into `cache.json`.
+3. Run the following to call the GitHub API for repo information, cache the results into `cache.json`, and place the website into a `dist` directory.
 
 ```bash
 python make.py cache.json dist
