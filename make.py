@@ -71,7 +71,7 @@ def load_data(repo, now, cache, only_cache):
 
     print("Getting data from GitHub")
     first_this_month = now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
-    previous_month = (first_this_month - timedelta(days=1)).replace(day=1)
+    previous_month = (first_this_month - timedelta(days=10)).replace(day=1)
 
     if not cache.exists():
         # load in 2 years worth of data if there is no cache
