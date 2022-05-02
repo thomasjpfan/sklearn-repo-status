@@ -31,9 +31,9 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: ~/.cache/ghcache.json
-          key: ${{ runner.os }}-ghcache-${{ hashFiles('make.py') }}-v2
+          key: ${{ runner.os }}-ghcache-v2-${{ hashFiles('make.py') }}
           restore-keys: |
-            ${{ runner.os }}-ghcache
+            ${{ runner.os }}-ghcache-v2
       - name: Install dependencies
         run: pip install -r requirements.txt
       - name: Run builder
