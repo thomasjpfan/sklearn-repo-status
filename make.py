@@ -74,8 +74,8 @@ def load_data(repo, now, cache, only_cache):
     previous_month = (first_this_month - timedelta(days=1)).replace(day=1)
 
     if not cache.exists():
-        # load in 1 years worth of data if there is no cache
-        since = previous_month.replace(year=now.year - 1)
+        # load in 2 years worth of data if there is no cache
+        since = previous_month.replace(year=now.year - 2)
     else:
         # There is a cache, only need to update the previous month + this month
         since = previous_month
