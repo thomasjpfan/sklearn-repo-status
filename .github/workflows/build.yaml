@@ -9,6 +9,11 @@ on:
       - main
   # Manual run
   workflow_dispatch:
+    inputs:
+      clear_cache:
+        description: "Clear Cache"
+        required: false
+        type: boolean
 
 jobs:
   build_webpage:
@@ -28,12 +33,14 @@ jobs:
           key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
+        if: ${{ github.event.inputs.clear_cache != 'true' }}
       - uses: actions/cache@v2
         with:
           path: ~/.cache/ghcache.json
           key: ${{ runner.os }}-ghcache-${{ hashFiles('make.py') }}
           restore-keys: |
             ${{ runner.os }}-ghcache
+        if: ${{ github.event.inputs.clear_cache != 'true' }}
       - name: Install dependencies
         run: pip install -r requirements.txt
       - name: Run builder
