@@ -31,7 +31,7 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: ~/.cache/ghcache.json
-          key: ${{ runner.os }}-ghcache-${{ hashFiles('make.py') }}
+          key: ${{ runner.os }}-ghcache-${{ hashFiles('make.py') }}-v2
           restore-keys: |
             ${{ runner.os }}-ghcache
       - name: Install dependencies
