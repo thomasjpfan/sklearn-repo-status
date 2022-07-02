@@ -109,7 +109,9 @@ def load_data(repo, now, cache, only_cache):
         [previous_str, now_str],
     )
     for key1, key2, time_key in keys:
-        data[key1][key2][time_key] = new_data[key1][key2].get(time_key, 0)
+        data[key1][key2][time_key] = max(
+            data[key1][key2].get(time_key, 0), new_data[key1][key2].get(time_key, 0)
+        )
 
     with cache.open("w") as f:
         json.dump(data, f)
