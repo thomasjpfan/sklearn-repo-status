@@ -28,12 +28,12 @@ jobs:
           key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
-      - uses: actions/cache@v2
-        with:
-          path: ~/.cache/ghcache.json
-          key: ${{ runner.os }}-ghcache-v2-${{ hashFiles('make.py') }}
-          restore-keys: |
-            ${{ runner.os }}-ghcache-v2
+      # - uses: actions/cache@v2
+      #   with:
+      #     path: ~/.cache/ghcache.json
+      #     key: ${{ runner.os }}-ghcache-v2-${{ hashFiles('make.py') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-ghcache-v2
       - name: Install dependencies
         run: pip install -r requirements.txt
       - name: Run builder
